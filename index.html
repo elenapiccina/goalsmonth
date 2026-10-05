@@ -1,0 +1,3626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Life Snapshot</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap');
+
+:root {
+
+  /* GENERAL */
+
+  --ink: #454b47;
+  --muted: #8d918b;
+  --line: rgba(70,70,65,.12);
+
+  --background-top: #eef1eb;
+  --background-bottom: #f0e9de;
+
+  --paper: #fffdf8;
+
+  /* STRAWBERRY — GOALS */
+
+  --strawberry: #f3d8d5;
+  --strawberry-light: #fae9e6;
+  --strawberry-accent: #c99491;
+
+  /* ALMOND — HABITS */
+
+  --almond: #e8dfce;
+  --almond-light: #f2ece1;
+  --almond-accent: #b8aa90;
+
+  /* PISTACHIO — LEARNING */
+
+  --pistachio: #dcebd1;
+  --pistachio-light: #edf5e8;
+  --pistachio-accent: #9db68c;
+
+  /* CAPPUCCINO — BUY */
+
+  --cappuccino: #e8d8ca;
+  --cappuccino-light: #f2e8df;
+  --cappuccino-accent: #b99d85;
+
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+
+  margin: 0;
+
+  padding: 18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--background-top) 0%,
+      #f5f0e7 50%,
+      var(--background-bottom) 100%
+    );
+
+  color: var(--ink);
+
+  font-family:
+    "Plus Jakarta Sans",
+    Arial,
+    sans-serif;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+
+.app {
+
+  width: 100%;
+
+  max-width: 380px;
+
+  margin: 0 auto;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+
+.header {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+
+}
+
+
+.title {
+
+  margin: 0;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 27px;
+
+  font-weight: 500;
+
+  letter-spacing: -0.7px;
+
+}
+
+
+.subtitle {
+
+  margin-top: 3px;
+
+  color: var(--muted);
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 11px;
+
+  font-style: italic;
+
+}
+
+
+.add-menu {
+
+  width: 31px;
+
+  height: 31px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.65);
+
+  color: var(--ink);
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+}
+
+
+/* =========================================================
+   MAIN FOCUS
+========================================================= */
+
+
+.focus-card {
+
+  background:
+    rgba(255,253,248,.88);
+
+  border:
+    1px solid rgba(80,75,65,.08);
+
+  border-radius: 16px;
+
+  padding: 11px 12px;
+
+  margin-bottom: 7px;
+
+}
+
+
+.label {
+
+  margin-bottom: 6px;
+
+  color: var(--muted);
+
+  font-size: 8px;
+
+  font-weight: 500;
+
+  letter-spacing: 1.3px;
+
+  text-transform: uppercase;
+
+}
+
+
+.focus-text {
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 17px;
+
+  line-height: 1.25;
+
+}
+
+
+.focus-edit {
+
+  margin-top: 5px;
+
+  border: 0;
+
+  padding: 0;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 8px;
+
+  cursor: pointer;
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+
+.section {
+
+  border-radius: 15px;
+
+  padding: 9px;
+
+  margin-bottom: 6px;
+
+  border:
+    1px solid rgba(80,75,65,.08);
+
+}
+
+
+.section.goals {
+
+  background: var(--strawberry-light);
+
+}
+
+
+.section.habits {
+
+  background: var(--almond-light);
+
+}
+
+
+.section.learning {
+
+  background: var(--pistachio-light);
+
+}
+
+
+.section.buy {
+
+  background: var(--cappuccino-light);
+
+}
+
+
+.section-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 5px;
+
+}
+
+
+.section-title {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 13px;
+
+}
+
+
+.section-title-icon {
+
+  font-size: 11px;
+
+}
+
+
+.section-count {
+
+  color: var(--muted);
+
+  font-family:
+    "Plus Jakarta Sans",
+    Arial,
+    sans-serif;
+
+  font-size: 7px;
+
+}
+
+
+.items {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+}
+
+
+/* =========================================================
+   ITEM
+========================================================= */
+
+
+.item {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  min-height: 29px;
+
+  padding: 5px 6px;
+
+  border-radius: 8px;
+
+  cursor: grab;
+
+  transition:
+    opacity .15s ease,
+    transform .15s ease;
+
+}
+
+
+.item:active {
+
+  cursor: grabbing;
+
+}
+
+
+.item.dragging {
+
+  opacity: .35;
+
+}
+
+
+.item.drag-over {
+
+  outline:
+    1px dashed
+    rgba(70,70,65,.4);
+
+}
+
+
+/* individual colours */
+
+
+.goals .item {
+
+  background: var(--strawberry);
+
+}
+
+
+.habits .item {
+
+  background: var(--almond);
+
+}
+
+
+.learning .item {
+
+  background: var(--pistachio);
+
+}
+
+
+.buy .item {
+
+  background: var(--cappuccino);
+
+}
+
+
+.item-text {
+
+  flex: 1;
+
+  min-width: 0;
+
+  font-size: 10px;
+
+  line-height: 1.3;
+
+  word-break: break-word;
+
+}
+
+
+.item-text.completed {
+
+  color: var(--muted);
+
+  text-decoration: line-through;
+
+}
+
+
+/* =========================================================
+   CHECKBOX
+========================================================= */
+
+
+.check {
+
+  width: 16px;
+
+  height: 16px;
+
+  min-width: 16px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(70,70,65,.3);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.35);
+
+  color: white;
+
+  font-size: 8px;
+
+  cursor: pointer;
+
+}
+
+
+.check.done {
+
+  background: var(--ink);
+
+}
+
+
+/* =========================================================
+   DRAG HANDLE
+========================================================= */
+
+
+.drag {
+
+  color: rgba(80,80,75,.4);
+
+  font-size: 9px;
+
+  letter-spacing: -2px;
+
+  cursor: grab;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+
+.actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1px;
+
+  opacity: .4;
+
+}
+
+
+.item:hover .actions {
+
+  opacity: 1;
+
+}
+
+
+.icon {
+
+  width: 19px;
+
+  height: 19px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 9px;
+
+  cursor: pointer;
+
+}
+
+
+.icon:hover {
+
+  color: var(--ink);
+
+}
+
+
+/* =========================================================
+   HABIT DAYS
+========================================================= */
+
+
+.habit-row {
+
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  gap: 6px;
+
+}
+
+
+.habit-days {
+
+  display: flex;
+
+  gap: 2px;
+
+  margin-left: auto;
+
+}
+
+
+.day {
+
+  width: 16px;
+
+  height: 16px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.5);
+
+  color: var(--muted);
+
+  font-size: 5px;
+
+  cursor: pointer;
+
+}
+
+
+.day.active {
+
+  background: var(--ink);
+
+  color: white;
+
+}
+
+
+/* =========================================================
+   BUY STATUS
+========================================================= */
+
+
+.buy-status {
+
+  padding: 3px 5px;
+
+  border-radius: 6px;
+
+  font-size: 6px;
+
+  letter-spacing: .3px;
+
+  font-weight: 500;
+
+  white-space: nowrap;
+
+}
+
+
+.buy-status.want {
+
+  background:
+    rgba(255,255,255,.55);
+
+  color:
+    var(--cappuccino-accent);
+
+}
+
+
+.buy-status.need {
+
+  background:
+    rgba(185,157,133,.3);
+
+  color: #795f4b;
+
+}
+
+
+/* =========================================================
+   ADD ROW
+========================================================= */
+
+
+.add-area {
+
+  display: none;
+
+  align-items: center;
+
+  gap: 4px;
+
+  margin-top: 5px;
+
+}
+
+
+.add-area.open {
+
+  display: flex;
+
+}
+
+
+.input {
+
+  flex: 1;
+
+  min-width: 0;
+
+  border: 0;
+
+  border-bottom:
+    1px solid
+    var(--line);
+
+  outline: 0;
+
+  background: transparent;
+
+  padding: 4px 2px;
+
+  color: var(--ink);
+
+  font-family:
+    "Plus Jakarta Sans",
+    Arial,
+    sans-serif;
+
+  font-size: 9px;
+
+}
+
+
+.input::placeholder {
+
+  color: #aaa69d;
+
+}
+
+
+.add-confirm {
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+}
+
+
+/* BUY SELECT */
+
+
+.buy-select {
+
+  border: 0;
+
+  border-radius: 6px;
+
+  background:
+    rgba(255,255,255,.55);
+
+  color: var(--ink);
+
+  padding: 4px;
+
+  font-family:
+    "Plus Jakarta Sans",
+    Arial,
+    sans-serif;
+
+  font-size: 7px;
+
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+
+.add-section {
+
+  width: 100%;
+
+  margin-top: 5px;
+
+  padding: 5px;
+
+  border:
+    1px dashed
+    rgba(80,75,65,.18);
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 8px;
+
+  cursor: pointer;
+
+}
+
+
+.add-section:hover {
+
+  background:
+    rgba(255,255,255,.3);
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+
+.empty {
+
+  padding: 3px 2px;
+
+  color: var(--muted);
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 9px;
+
+  font-style: italic;
+
+}
+
+
+/* =========================================================
+   EDIT MODE
+========================================================= */
+
+
+.edit-row {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+
+  width: 100%;
+
+}
+
+
+.edit-input {
+
+  flex: 1;
+
+  min-width: 0;
+
+  border: 0;
+
+  border-bottom:
+    1px solid
+    rgba(70,70,65,.2);
+
+  outline: 0;
+
+  background: transparent;
+
+  padding: 3px;
+
+  color: var(--ink);
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 10px;
+
+}
+
+
+.edit-select {
+
+  border: 0;
+
+  border-radius: 5px;
+
+  background:
+    rgba(255,255,255,.55);
+
+  padding: 3px;
+
+  font-size: 7px;
+
+  color: var(--ink);
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+
+.footer {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  padding:
+    2px
+    3px
+    0;
+
+  color: var(--muted);
+
+  font-size: 7px;
+
+}
+
+
+.clear-button {
+
+  border: 0;
+
+  padding: 0;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 7px;
+
+  cursor: pointer;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+
+@media(max-width:400px) {
+
+  body {
+
+    padding: 10px;
+
+  }
+
+  .app {
+
+    max-width: 100%;
+
+  }
+
+  .title {
+
+    font-size: 24px;
+
+  }
+
+  .habit-days {
+
+    gap: 1px;
+
+  }
+
+  .day {
+
+    width: 15px;
+
+    height: 15px;
+
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+
+@media(prefers-reduced-motion: reduce) {
+
+  * {
+
+    transition: none !important;
+
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div>
+
+      <h1 class="title">
+        Life snapshot
+      </h1>
+
+      <div class="subtitle">
+        just enough to remember what matters
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="add-menu"
+      id="globalAdd"
+      aria-label="Add"
+    >
+      +
+    </button>
+
+  </header>
+
+
+  <!-- FOCUS -->
+
+  <section class="focus-card">
+
+    <div class="label">
+      Right now
+    </div>
+
+    <div
+      class="focus-text"
+      id="focusText"
+    >
+      My main focus
+    </div>
+
+    <button
+      type="button"
+      class="focus-edit"
+      id="focusEdit"
+    >
+      edit focus
+    </button>
+
+  </section>
+
+
+  <!-- GOALS -->
+
+  <section class="section goals">
+
+    <div class="section-header">
+
+      <div class="section-title">
+
+        <span class="section-title-icon">
+          🍓
+        </span>
+
+        Goals
+
+      </div>
+
+      <span
+        class="section-count"
+        id="goalCount"
+      >
+        0
+      </span>
+
+    </div>
+
+
+    <div
+      class="items"
+      id="goalList"
+    ></div>
+
+
+    <button
+      type="button"
+      class="add-section"
+      data-section="goals"
+    >
+      + goal
+    </button>
+
+
+    <div
+      class="add-area"
+      id="goalsAdd"
+    >
+
+      <input
+        class="input"
+        id="goalInput"
+        maxlength="80"
+        placeholder="what matters now?"
+      >
+
+      <button
+        type="button"
+        class="add-confirm"
+        id="goalAddConfirm"
+      >
+        ↵
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- HABITS -->
+
+  <section class="section habits">
+
+    <div class="section-header">
+
+      <div class="section-title">
+
+        <span class="section-title-icon">
+          🌰
+        </span>
+
+        Habits
+
+      </div>
+
+      <span class="section-count">
+        weekly
+      </span>
+
+    </div>
+
+
+    <div
+      class="items"
+      id="habitList"
+    ></div>
+
+
+    <button
+      type="button"
+      class="add-section"
+      data-section="habits"
+    >
+      + habit
+    </button>
+
+
+    <div
+      class="add-area"
+      id="habitsAdd"
+    >
+
+      <input
+        class="input"
+        id="habitInput"
+        maxlength="60"
+        placeholder="something worth repeating…"
+      >
+
+      <button
+        type="button"
+        class="add-confirm"
+        id="habitAddConfirm"
+      >
+        ↵
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- LEARNING -->
+
+  <section class="section learning">
+
+    <div class="section-header">
+
+      <div class="section-title">
+
+        <span class="section-title-icon">
+          🌿
+        </span>
+
+        Currently learning
+
+      </div>
+
+      <span class="section-count">
+        one skill
+      </span>
+
+    </div>
+
+
+    <div
+      id="skillArea"
+    ></div>
+
+
+    <button
+      type="button"
+      class="add-section"
+      id="changeSkill"
+    >
+      + change skill
+    </button>
+
+
+    <div
+      class="add-area"
+      id="skillAdd"
+    >
+
+      <input
+        class="input"
+        id="skillInput"
+        maxlength="60"
+        placeholder="one skill only…"
+      >
+
+      <button
+        type="button"
+        class="add-confirm"
+        id="skillAddConfirm"
+      >
+        ↵
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUY -->
+
+  <section class="section buy">
+
+    <div class="section-header">
+
+      <div class="section-title">
+
+        <span class="section-title-icon">
+          ☕
+        </span>
+
+        Things to buy
+
+      </div>
+
+      <span class="section-count">
+        want / need
+      </span>
+
+    </div>
+
+
+    <div
+      class="items"
+      id="buyList"
+    ></div>
+
+
+    <button
+      type="button"
+      class="add-section"
+      data-section="buy"
+    >
+      + thing to buy
+    </button>
+
+
+    <div
+      class="add-area"
+      id="buyAdd"
+    >
+
+      <input
+        class="input"
+        id="buyInput"
+        maxlength="60"
+        placeholder="what do you need / want?"
+      >
+
+      <select
+        class="buy-select"
+        id="buyStatus"
+      >
+
+        <option value="want">
+          want
+        </option>
+
+        <option value="need">
+          need
+        </option>
+
+      </select>
+
+
+      <button
+        type="button"
+        class="add-confirm"
+        id="buyAddConfirm"
+      >
+        ↵
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <div class="footer">
+
+    <span>
+      ⋮⋮ drag to rearrange
+    </span>
+
+    <button
+      type="button"
+      class="clear-button"
+      id="clearCompleted"
+    >
+      clear completed
+    </button>
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+
+(function() {
+
+
+  /* ======================================================
+     STORAGE
+  ====================================================== */
+
+
+  const STORAGE_KEY =
+    "lifeSnapshot_v3";
+
+
+  let data = {
+
+    focus:
+      "My main focus",
+
+    goals: [],
+
+    habits: [],
+
+    skill: "",
+
+    buys: []
+
+  };
+
+
+  try {
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE_KEY
+        )
+      );
+
+
+    if (saved) {
+
+      data = {
+        ...data,
+        ...saved
+      };
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.log(
+      "Starting with empty Life Snapshot."
+    );
+
+  }
+
+
+  function save() {
+
+    try {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+
+    }
+
+    catch (error) {}
+
+  }
+
+
+  function createId() {
+
+    return (
+      Date.now() +
+      Math.random()
+    );
+
+  }
+
+
+  /* ======================================================
+     ELEMENTS
+  ====================================================== */
+
+
+  const goalList =
+    document.getElementById(
+      "goalList"
+    );
+
+
+  const habitList =
+    document.getElementById(
+      "habitList"
+    );
+
+
+  const buyList =
+    document.getElementById(
+      "buyList"
+    );
+
+
+  const skillArea =
+    document.getElementById(
+      "skillArea"
+    );
+
+
+  const focusText =
+    document.getElementById(
+      "focusText"
+    );
+
+
+  const goalCount =
+    document.getElementById(
+      "goalCount"
+    );
+
+
+  /* ======================================================
+     SAFE TEXT
+  ====================================================== */
+
+
+  function escapeHTML(value) {
+
+    return String(value)
+      .replace(
+        /[&<>"']/g,
+        function(char) {
+
+          const map = {
+
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+
+          };
+
+          return map[char];
+
+        }
+      );
+
+  }
+
+
+  /* ======================================================
+     SHOW ADD
+  ====================================================== */
+
+
+  function hideAllAddAreas() {
+
+    document
+      .querySelectorAll(".add-area")
+      .forEach(
+        area =>
+          area.classList.remove(
+            "open"
+          )
+      );
+
+  }
+
+
+  function showAddArea(type) {
+
+    hideAllAddAreas();
+
+
+    let area;
+
+
+    if (type === "goals") {
+
+      area =
+        document.getElementById(
+          "goalsAdd"
+        );
+
+    }
+
+
+    if (type === "habits") {
+
+      area =
+        document.getElementById(
+          "habitsAdd"
+        );
+
+    }
+
+
+    if (type === "skill") {
+
+      area =
+        document.getElementById(
+          "skillAdd"
+        );
+
+    }
+
+
+    if (type === "buy") {
+
+      area =
+        document.getElementById(
+          "buyAdd"
+        );
+
+    }
+
+
+    if (!area) return;
+
+
+    area.classList.add(
+      "open"
+    );
+
+
+    const input =
+      area.querySelector(
+        "input"
+      );
+
+
+    if (input) {
+
+      input.focus();
+
+    }
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".add-section"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            showAddArea(
+              this.dataset.section
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "globalAdd"
+    )
+    .addEventListener(
+      "click",
+      function() {
+
+        const choice =
+          prompt(
+            "Add: goal, habit, skill or buy"
+          );
+
+
+        if (!choice) return;
+
+
+        const value =
+          choice
+            .trim()
+            .toLowerCase();
+
+
+        if (
+          value === "goal" ||
+          value === "goals"
+        ) {
+
+          showAddArea(
+            "goals"
+          );
+
+        }
+
+
+        else if (
+          value === "habit" ||
+          value === "habits"
+        ) {
+
+          showAddArea(
+            "habits"
+          );
+
+        }
+
+
+        else if (
+          value === "skill" ||
+          value === "learning"
+        ) {
+
+          showAddArea(
+            "skill"
+          );
+
+        }
+
+
+        else if (
+          value === "buy" ||
+          value === "buys"
+        ) {
+
+          showAddArea(
+            "buy"
+          );
+
+        }
+
+      }
+    );
+
+
+  /* ======================================================
+     ADD GOAL
+  ====================================================== */
+
+
+  function addGoal() {
+
+    const input =
+      document.getElementById(
+        "goalInput"
+      );
+
+
+    const text =
+      input.value.trim();
+
+
+    if (!text) {
+
+      input.focus();
+
+      return;
+
+    }
+
+
+    data.goals.push({
+
+      id:
+        createId(),
+
+      text:
+        text,
+
+      completed:
+        false
+
+    });
+
+
+    input.value = "";
+
+
+    hideAllAddAreas();
+
+    save();
+
+    renderGoals();
+
+  }
+
+
+  document
+    .getElementById(
+      "goalAddConfirm"
+    )
+    .addEventListener(
+      "click",
+      addGoal
+    );
+
+
+  document
+    .getElementById(
+      "goalInput"
+    )
+    .addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          addGoal();
+
+        }
+
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          hideAllAddAreas();
+
+        }
+
+      }
+    );
+
+
+  /* ======================================================
+     ADD HABIT
+  ====================================================== */
+
+
+  function addHabit() {
+
+    const input =
+      document.getElementById(
+        "habitInput"
+      );
+
+
+    const text =
+      input.value.trim();
+
+
+    if (!text) {
+
+      input.focus();
+
+      return;
+
+    }
+
+
+    data.habits.push({
+
+      id:
+        createId(),
+
+      text:
+        text,
+
+      days: []
+
+    });
+
+
+    input.value = "";
+
+
+    hideAllAddAreas();
+
+    save();
+
+    renderHabits();
+
+  }
+
+
+  document
+    .getElementById(
+      "habitAddConfirm"
+    )
+    .addEventListener(
+      "click",
+      addHabit
+    );
+
+
+  document
+    .getElementById(
+      "habitInput"
+    )
+    .addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          addHabit();
+
+        }
+
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          hideAllAddAreas();
+
+        }
+
+      }
+    );
+
+
+  /* ======================================================
+     ADD / CHANGE SKILL
+  ====================================================== */
+
+
+  function addSkill() {
+
+    const input =
+      document.getElementById(
+        "skillInput"
+      );
+
+
+    const text =
+      input.value.trim();
+
+
+    if (!text) {
+
+      input.focus();
+
+      return;
+
+    }
+
+
+    data.skill =
+      text;
+
+
+    input.value = "";
+
+
+    hideAllAddAreas();
+
+    save();
+
+    renderSkill();
+
+  }
+
+
+  document
+    .getElementById(
+      "skillAddConfirm"
+    )
+    .addEventListener(
+      "click",
+      addSkill
+    );
+
+
+  document
+    .getElementById(
+      "skillInput"
+    )
+    .addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          addSkill();
+
+        }
+
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          hideAllAddAreas();
+
+        }
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "changeSkill"
+    )
+    .addEventListener(
+      "click",
+      function() {
+
+        showAddArea(
+          "skill"
+        );
+
+      }
+    );
+
+
+  /* ======================================================
+     ADD BUY
+  ====================================================== */
+
+
+  function addBuy() {
+
+    const input =
+      document.getElementById(
+        "buyInput"
+      );
+
+
+    const status =
+      document.getElementById(
+        "buyStatus"
+      );
+
+
+    const text =
+      input.value.trim();
+
+
+    if (!text) {
+
+      input.focus();
+
+      return;
+
+    }
+
+
+    data.buys.push({
+
+      id:
+        createId(),
+
+      text:
+        text,
+
+      status:
+        status.value
+
+    });
+
+
+    input.value = "";
+
+
+    hideAllAddAreas();
+
+    save();
+
+    renderBuys();
+
+  }
+
+
+  document
+    .getElementById(
+      "buyAddConfirm"
+    )
+    .addEventListener(
+      "click",
+      addBuy
+    );
+
+
+  document
+    .getElementById(
+      "buyInput"
+    )
+    .addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          addBuy();
+
+        }
+
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          hideAllAddAreas();
+
+        }
+
+      }
+    );
+
+
+  /* ======================================================
+     FOCUS
+  ====================================================== */
+
+
+  document
+    .getElementById(
+      "focusEdit"
+    )
+    .addEventListener(
+      "click",
+      function() {
+
+        const value =
+          prompt(
+            "What is your main focus right now?",
+            data.focus
+          );
+
+
+        if (
+          value !== null &&
+          value.trim()
+        ) {
+
+          data.focus =
+            value.trim();
+
+          save();
+
+          focusText.textContent =
+            data.focus;
+
+        }
+
+      }
+    );
+
+
+  /* ======================================================
+     EDIT GOAL / BUY / HABIT
+  ====================================================== */
+
+
+  function editItem(
+    type,
+    item,
+    row
+  ) {
+
+    const wrapper =
+      document.createElement(
+        "div"
+      );
+
+
+    wrapper.className =
+      "edit-row";
+
+
+    const input =
+      document.createElement(
+        "input"
+      );
+
+
+    input.className =
+      "edit-input";
+
+
+    input.value =
+      item.text;
+
+
+    input.maxLength =
+      80;
+
+
+    const saveButton =
+      document.createElement(
+        "button"
+      );
+
+
+    saveButton.type =
+      "button";
+
+
+    saveButton.className =
+      "icon";
+
+
+    saveButton.textContent =
+      "✓";
+
+
+    const cancelButton =
+      document.createElement(
+        "button"
+      );
+
+
+    cancelButton.type =
+      "button";
+
+
+    cancelButton.className =
+      "icon";
+
+
+    cancelButton.textContent =
+      "×";
+
+
+    wrapper.appendChild(
+      input
+    );
+
+
+    if (
+      type === "buys"
+    ) {
+
+      const select =
+        document.createElement(
+          "select"
+        );
+
+
+      select.className =
+        "edit-select";
+
+
+      select.innerHTML = `
+
+        <option value="want">
+          want
+        </option>
+
+        <option value="need">
+          need
+        </option>
+
+      `;
+
+
+      select.value =
+        item.status ||
+        "want";
+
+
+      wrapper.appendChild(
+        select
+      );
+
+
+      wrapper.appendChild(
+        saveButton
+      );
+
+
+      wrapper.appendChild(
+        cancelButton
+      );
+
+
+      row.innerHTML = "";
+
+      row.appendChild(
+        wrapper
+      );
+
+
+      input.focus();
+
+      input.select();
+
+
+      function finish() {
+
+        const value =
+          input.value.trim();
+
+
+        if (!value) {
+
+          input.focus();
+
+          return;
+
+        }
+
+
+        item.text =
+          value;
+
+
+        item.status =
+          select.value;
+
+
+        save();
+
+        renderBuys();
+
+      }
+
+
+      saveButton.onclick =
+        finish;
+
+
+      cancelButton.onclick =
+        renderBuys;
+
+
+      input.onkeydown =
+        function(event) {
+
+          if (
+            event.key === "Enter"
+          ) {
+
+            finish();
+
+          }
+
+
+          if (
+            event.key === "Escape"
+          ) {
+
+            renderBuys();
+
+          }
+
+        };
+
+
+      return;
+
+    }
+
+
+    wrapper.appendChild(
+      saveButton
+    );
+
+
+    wrapper.appendChild(
+      cancelButton
+    );
+
+
+    row.innerHTML = "";
+
+    row.appendChild(
+      wrapper
+    );
+
+
+    input.focus();
+
+    input.select();
+
+
+    function finish() {
+
+      const value =
+        input.value.trim();
+
+
+      if (!value) {
+
+        input.focus();
+
+        return;
+
+      }
+
+
+      item.text =
+        value;
+
+
+      save();
+
+
+      if (
+        type === "goals"
+      ) {
+
+        renderGoals();
+
+      }
+
+      else {
+
+        renderHabits();
+
+      }
+
+    }
+
+
+    saveButton.onclick =
+      finish;
+
+
+    cancelButton.onclick =
+      function() {
+
+        if (
+          type === "goals"
+        ) {
+
+          renderGoals();
+
+        }
+
+        else {
+
+          renderHabits();
+
+        }
+
+      };
+
+
+    input.onkeydown =
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          finish();
+
+        }
+
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          if (
+            type === "goals"
+          ) {
+
+            renderGoals();
+
+          }
+
+          else {
+
+            renderHabits();
+
+          }
+
+        }
+
+      };
+
+  }
+
+
+  /* ======================================================
+     DRAGGING
+  ====================================================== */
+
+
+  let dragged = null;
+
+
+  function enableDragging(
+    row,
+    type,
+    item
+  ) {
+
+    row.draggable =
+      true;
+
+
+    row.addEventListener(
+      "dragstart",
+      function() {
+
+        dragged = {
+
+          type:
+            type,
+
+          id:
+            item.id
+
+        };
+
+
+        row.classList.add(
+          "dragging"
+        );
+
+      }
+    );
+
+
+    row.addEventListener(
+      "dragend",
+      function() {
+
+        dragged =
+          null;
+
+
+        row.classList.remove(
+          "dragging"
+        );
+
+
+        document
+          .querySelectorAll(
+            ".drag-over"
+          )
+          .forEach(
+            el =>
+              el.classList.remove(
+                "drag-over"
+              )
+          );
+
+      }
+    );
+
+
+    row.addEventListener(
+      "dragover",
+      function(event) {
+
+        event.preventDefault();
+
+
+        if (
+          dragged &&
+          dragged.id !== item.id &&
+          dragged.type === type
+        ) {
+
+          row.classList.add(
+            "drag-over"
+          );
+
+        }
+
+      }
+    );
+
+
+    row.addEventListener(
+      "dragleave",
+      function() {
+
+        row.classList.remove(
+          "drag-over"
+        );
+
+      }
+    );
+
+
+    row.addEventListener(
+      "drop",
+      function(event) {
+
+        event.preventDefault();
+
+
+        row.classList.remove(
+          "drag-over"
+        );
+
+
+        if (
+          !dragged ||
+          dragged.id === item.id ||
+          dragged.type !== type
+        ) {
+
+          return;
+
+        }
+
+
+        reorder(
+          type,
+          dragged.id,
+          item.id
+        );
+
+      }
+    );
+
+  }
+
+
+  function reorder(
+    type,
+    draggedId,
+    targetId
+  ) {
+
+    const list =
+      data[type];
+
+
+    const fromIndex =
+      list.findIndex(
+        item =>
+          item.id === draggedId
+      );
+
+
+    const targetIndex =
+      list.findIndex(
+        item =>
+          item.id === targetId
+      );
+
+
+    if (
+      fromIndex < 0 ||
+      targetIndex < 0
+    ) {
+
+      return;
+
+    }
+
+
+    const item =
+      list.splice(
+        fromIndex,
+        1
+      )[0];
+
+
+    list.splice(
+      targetIndex,
+      0,
+      item
+    );
+
+
+    save();
+
+
+    if (
+      type === "goals"
+    ) {
+
+      renderGoals();
+
+    }
+
+
+    else if (
+      type === "habits"
+    ) {
+
+      renderHabits();
+
+    }
+
+
+    else if (
+      type === "buys"
+    ) {
+
+      renderBuys();
+
+    }
+
+  }
+
+
+  /* ======================================================
+     GOALS RENDER
+  ====================================================== */
+
+
+  function renderGoals() {
+
+    goalList.innerHTML =
+      "";
+
+
+    goalCount.textContent =
+      data.goals.length;
+
+
+    if (
+      data.goals.length === 0
+    ) {
+
+      goalList.innerHTML =
+        '<div class="empty">Nothing urgent yet.</div>';
+
+      return;
+
+    }
+
+
+    data.goals.forEach(
+      function(item) {
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "item";
+
+
+        const check =
+          document.createElement(
+            "button"
+          );
+
+
+        check.type =
+          "button";
+
+
+        check.className =
+          "check " +
+          (
+            item.completed
+              ? "done"
+              : ""
+          );
+
+
+        check.textContent =
+          item.completed
+            ? "✓"
+            : "";
+
+
+        check.onclick =
+          function() {
+
+            item.completed =
+              !item.completed;
+
+
+            save();
+
+            renderGoals();
+
+          };
+
+
+        const drag =
+          document.createElement(
+            "span"
+          );
+
+
+        drag.className =
+          "drag";
+
+
+        drag.textContent =
+          "⋮⋮";
+
+
+        const text =
+          document.createElement(
+            "div"
+          );
+
+
+        text.className =
+          "item-text " +
+          (
+            item.completed
+              ? "completed"
+              : ""
+          );
+
+
+        text.textContent =
+          item.text;
+
+
+        const actions =
+          document.createElement(
+            "div"
+          );
+
+
+        actions.className =
+          "actions";
+
+
+        actions.innerHTML = `
+
+          <button
+            type="button"
+            class="icon edit"
+          >
+            ✎
+          </button>
+
+          <button
+            type="button"
+            class="icon delete"
+          >
+            ×
+          </button>
+
+        `;
+
+
+        actions
+          .querySelector(
+            ".edit"
+          )
+          .onclick =
+          function() {
+
+            editItem(
+              "goals",
+              item,
+              row
+            );
+
+          };
+
+
+        actions
+          .querySelector(
+            ".delete"
+          )
+          .onclick =
+          function() {
+
+            data.goals =
+              data.goals.filter(
+                x =>
+                  x.id !== item.id
+              );
+
+
+            save();
+
+            renderGoals();
+
+          };
+
+
+        row.appendChild(
+          drag
+        );
+
+
+        row.appendChild(
+          check
+        );
+
+
+        row.appendChild(
+          text
+        );
+
+
+        row.appendChild(
+          actions
+        );
+
+
+        enableDragging(
+          row,
+          "goals",
+          item
+        );
+
+
+        goalList.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ======================================================
+     HABITS RENDER
+  ====================================================== */
+
+
+  function renderHabits() {
+
+    habitList.innerHTML =
+      "";
+
+
+    if (
+      data.habits.length === 0
+    ) {
+
+      habitList.innerHTML =
+        '<div class="empty">Keep it light.</div>';
+
+      return;
+
+    }
+
+
+    const days =
+      [
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S",
+        "S"
+      ];
+
+
+    data.habits.forEach(
+      function(item) {
+
+        if (
+          !Array.isArray(
+            item.days
+          )
+        ) {
+
+          item.days = [];
+
+        }
+
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "item";
+
+
+        const drag =
+          document.createElement(
+            "span"
+          );
+
+
+        drag.className =
+          "drag";
+
+
+        drag.textContent =
+          "⋮⋮";
+
+
+        const habitRow =
+          document.createElement(
+            "div"
+          );
+
+
+        habitRow.className =
+          "habit-row";
+
+
+        const text =
+          document.createElement(
+            "div"
+          );
+
+
+        text.className =
+          "item-text";
+
+
+        text.textContent =
+          item.text;
+
+
+        const daysWrap =
+          document.createElement(
+            "div"
+          );
+
+
+        daysWrap.className =
+          "habit-days";
+
+
+        days.forEach(
+          function(day, index) {
+
+            const button =
+              document.createElement(
+                "button"
+              );
+
+
+            button.type =
+              "button";
+
+
+            button.className =
+              "day " +
+              (
+                item.days.includes(
+                  index
+                )
+                  ? "active"
+                  : ""
+              );
+
+
+            button.textContent =
+              day;
+
+
+            button.title =
+              "Toggle " +
+              day;
+
+
+            button.onclick =
+              function(event) {
+
+                event.stopPropagation();
+
+
+                if (
+                  item.days.includes(
+                    index
+                  )
+                ) {
+
+                  item.days =
+                    item.days.filter(
+                      x =>
+                        x !== index
+                    );
+
+                }
+
+                else {
+
+                  item.days.push(
+                    index
+                  );
+
+                }
+
+
+                save();
+
+                renderHabits();
+
+              };
+
+
+            daysWrap.appendChild(
+              button
+            );
+
+          }
+        );
+
+
+        const actions =
+          document.createElement(
+            "div"
+          );
+
+
+        actions.className =
+          "actions";
+
+
+        actions.innerHTML = `
+
+          <button
+            type="button"
+            class="icon edit"
+          >
+            ✎
+          </button>
+
+          <button
+            type="button"
+            class="icon delete"
+          >
+            ×
+          </button>
+
+        `;
+
+
+        actions
+          .querySelector(
+            ".edit"
+          )
+          .onclick =
+          function(event) {
+
+            event.stopPropagation();
+
+
+            editItem(
+              "habits",
+              item,
+              row
+            );
+
+          };
+
+
+        actions
+          .querySelector(
+            ".delete"
+          )
+          .onclick =
+          function(event) {
+
+            event.stopPropagation();
+
+
+            data.habits =
+              data.habits.filter(
+                x =>
+                  x.id !== item.id
+              );
+
+
+            save();
+
+            renderHabits();
+
+          };
+
+
+        habitRow.appendChild(
+          text
+        );
+
+
+        habitRow.appendChild(
+          daysWrap
+        );
+
+
+        habitRow.appendChild(
+          actions
+        );
+
+
+        row.appendChild(
+          drag
+        );
+
+
+        row.appendChild(
+          habitRow
+        );
+
+
+        enableDragging(
+          row,
+          "habits",
+          item
+        );
+
+
+        habitList.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ======================================================
+     SKILL RENDER
+  ====================================================== */
+
+
+  function renderSkill() {
+
+    skillArea.innerHTML =
+      "";
+
+
+    if (
+      !data.skill
+    ) {
+
+      skillArea.innerHTML =
+        '<div class="empty">One skill. Not ten.</div>';
+
+      return;
+
+    }
+
+
+    const row =
+      document.createElement(
+        "div"
+      );
+
+
+    row.className =
+      "item";
+
+
+    const drag =
+      document.createElement(
+        "span"
+      );
+
+
+    drag.className =
+      "drag";
+
+
+    drag.textContent =
+      "⋮⋮";
+
+
+    const dot =
+      document.createElement(
+        "span"
+      );
+
+
+    dot.style.width =
+      "7px";
+
+
+    dot.style.height =
+      "7px";
+
+
+    dot.style.minWidth =
+      "7px";
+
+
+    dot.style.borderRadius =
+      "50%";
+
+
+    dot.style.background =
+      "var(--pistachio-accent)";
+
+
+    const text =
+      document.createElement(
+        "div"
+      );
+
+
+    text.className =
+      "item-text";
+
+
+    text.textContent =
+      data.skill;
+
+
+    const actions =
+      document.createElement(
+        "div"
+      );
+
+
+    actions.className =
+      "actions";
+
+
+    actions.innerHTML = `
+
+      <button
+        type="button"
+        class="icon edit"
+      >
+        ✎
+      </button>
+
+      <button
+        type="button"
+        class="icon delete"
+      >
+        ×
+      </button>
+
+    `;
+
+
+    actions
+      .querySelector(
+        ".edit"
+      )
+      .onclick =
+      function() {
+
+        showAddArea(
+          "skill"
+        );
+
+        document
+          .getElementById(
+            "skillInput"
+          )
+          .value =
+          data.skill;
+
+      };
+
+
+    actions
+      .querySelector(
+        ".delete"
+      )
+      .onclick =
+      function() {
+
+        data.skill =
+          "";
+
+
+        save();
+
+        renderSkill();
+
+      };
+
+
+    row.appendChild(
+      drag
+    );
+
+
+    row.appendChild(
+      dot
+    );
+
+
+    row.appendChild(
+      text
+    );
+
+
+    row.appendChild(
+      actions
+    );
+
+
+    skillArea.appendChild(
+      row
+    );
+
+  }
+
+
+  /* ======================================================
+     BUY RENDER
+  ====================================================== */
+
+
+  function renderBuys() {
+
+    buyList.innerHTML =
+      "";
+
+
+    if (
+      data.buys.length === 0
+    ) {
+
+      buyList.innerHTML =
+        '<div class="empty">Nothing on the list.</div>';
+
+      return;
+
+    }
+
+
+    data.buys.forEach(
+      function(item) {
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "item";
+
+
+        const drag =
+          document.createElement(
+            "span"
+          );
+
+
+        drag.className =
+          "drag";
+
+
+        drag.textContent =
+          "⋮⋮";
+
+
+        const text =
+          document.createElement(
+            "div"
+          );
+
+
+        text.className =
+          "item-text";
+
+
+        text.textContent =
+          item.text;
+
+
+        const status =
+          document.createElement(
+            "span"
+          );
+
+
+        status.className =
+          "buy-status " +
+          (
+            item.status === "need"
+              ? "need"
+              : "want"
+          );
+
+
+        status.textContent =
+          item.status === "need"
+            ? "need"
+            : "want";
+
+
+        status.style.cursor =
+          "pointer";
+
+
+        status.title =
+          "Click to switch";
+
+
+        status.onclick =
+          function(event) {
+
+            event.stopPropagation();
+
+
+            item.status =
+              item.status === "need"
+                ? "want"
+                : "need";
+
+
+            save();
+
+            renderBuys();
+
+          };
+
+
+        const actions =
+          document.createElement(
+            "div"
+          );
+
+
+        actions.className =
+          "actions";
+
+
+        actions.innerHTML = `
+
+          <button
+            type="button"
+            class="icon edit"
+          >
+            ✎
+          </button>
+
+          <button
+            type="button"
+            class="icon delete"
+          >
+            ×
+          </button>
+
+        `;
+
+
+        actions
+          .querySelector(
+            ".edit"
+          )
+          .onclick =
+          function() {
+
+            editItem(
+              "buys",
+              item,
+              row
+            );
+
+          };
+
+
+        actions
+          .querySelector(
+            ".delete"
+          )
+          .onclick =
+          function() {
+
+            data.buys =
+              data.buys.filter(
+                x =>
+                  x.id !== item.id
+              );
+
+
+            save();
+
+            renderBuys();
+
+          };
+
+
+        row.appendChild(
+          drag
+        );
+
+
+        row.appendChild(
+          text
+        );
+
+
+        row.appendChild(
+          status
+        );
+
+
+        row.appendChild(
+          actions
+        );
+
+
+        enableDragging(
+          row,
+          "buys",
+          item
+        );
+
+
+        buyList.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ======================================================
+     CLEAR COMPLETED
+  ====================================================== */
+
+
+  document
+    .getElementById(
+      "clearCompleted"
+    )
+    .addEventListener(
+      "click",
+      function() {
+
+        data.goals =
+          data.goals.filter(
+            goal =>
+              !goal.completed
+          );
+
+
+        save();
+
+        renderGoals();
+
+      }
+    );
+
+
+  /* ======================================================
+     INITIAL RENDER
+  ====================================================== */
+
+
+  focusText.textContent =
+    data.focus;
+
+
+  renderGoals();
+
+  renderHabits();
+
+  renderSkill();
+
+  renderBuys();
+
+
+})();
+
+</script>
+
+
+</body>
+</html>
