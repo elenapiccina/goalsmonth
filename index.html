@@ -22,20 +22,20 @@
   --strawberry-light: #fae9e6;
   --strawberry-accent: #c99491;
 
-  /* DUSTY LAVENDER — HABITS */
-  --almond: #e5e0ec;
-  --almond-light: #f3f0f7;
-  --almond-accent: #a9a1b8;
+  /* CAPPUCCINO — HABITS */
+  --almond: #e8d8ca;
+  --almond-light: #f2e8df;
+  --almond-accent: #b99d85;
 
   /* PISTACHIO — LEARNING */
   --pistachio: #dcebd1;
   --pistachio-light: #edf5e8;
   --pistachio-accent: #9db68c;
 
-  /* CAPPUCCINO — BUY */
-  --cappuccino: #e8d8ca;
-  --cappuccino-light: #f2e8df;
-  --cappuccino-accent: #b99d85;
+  /* SOFT ICE BLUE/MINT — THINGS TO BUY (#F0F7F7) */
+  --cappuccino: #d9eaea;
+  --cappuccino-light: #f0f7f7;
+  --cappuccino-accent: #82a3a3;
 
   /* LIME — PRACTISED */
   --lime: #c5e89b;
@@ -180,7 +180,13 @@ body {
   min-height: 32px;
   padding: 6px 8px;
   border-radius: 8px;
-  transition: opacity .15s ease;
+  transition: opacity .15s ease, transform .15s ease;
+  user-select: none;
+}
+
+.item.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
 }
 
 .goals .item { background: var(--strawberry); }
@@ -238,6 +244,12 @@ body {
   color: rgba(80,80,75,.35);
   font-size: 10px;
   cursor: grab;
+  touch-action: none;
+  padding: 0 2px;
+}
+
+.drag:active {
+  cursor: grabbing;
 }
 
 /* STATUS BADGES */
@@ -273,12 +285,12 @@ body {
 
 .status-badge.want {
   background: rgba(255,255,255,.55);
-  color: var(--cappuccino-accent);
+  color: #4b6f6f;
 }
 
 .status-badge.need {
-  background: rgba(185,157,133,.35);
-  color: #69503d;
+  background: rgba(130,163,163,.35);
+  color: #2e4a4a;
 }
 
 /* PRACTISED TODAY BADGE */
@@ -600,6 +612,44 @@ body {
     renderSkill();
   });
 
+  /* DRAG & DROP SUPPORT */
+  let draggedIndex = null;
+  let draggedType = null;
+
+  function attachDragListeners(element, index, type, reRenderFn) {
+    element.setAttribute("draggable", "true");
+
+    element.addEventListener("dragstart", (e) => {
+      draggedIndex = index;
+      draggedType = type;
+      element.classList.add("dragging");
+      e.dataTransfer.effectAllowed = "move";
+    });
+
+    element.addEventListener("dragend", () => {
+      element.classList.remove("dragging");
+      draggedIndex = null;
+      draggedType = null;
+    });
+
+    element.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+    });
+
+    element.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (draggedType !== type || draggedIndex === null || draggedIndex === index) return;
+
+      const list = data[type];
+      const movedItem = list.splice(draggedIndex, 1)[0];
+      list.splice(index, 0, movedItem);
+
+      save();
+      reRenderFn();
+    });
+  }
+
   /* ADD GOAL */
   function addGoal() {
     const input = document.getElementById("goalInput");
@@ -642,9 +692,13 @@ body {
       return;
     }
 
-    data.goals.forEach(item => {
+    data.goals.forEach((item, index) => {
       const row = document.createElement("div");
       row.className = "item";
+
+      const dragHandle = document.createElement("span");
+      dragHandle.className = "drag";
+      dragHandle.textContent = "⋮⋮";
 
       const check = document.createElement("button");
       check.type = "button";
@@ -669,9 +723,12 @@ body {
         cycleGoalStatus(item);
       };
 
+      row.appendChild(dragHandle);
       row.appendChild(check);
       row.appendChild(text);
       row.appendChild(badge);
+
+      attachDragListeners(row, index, "goals", renderGoals);
       goalList.appendChild(row);
     });
   }
@@ -701,9 +758,13 @@ body {
 
     const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
 
-    data.habits.forEach(item => {
+    data.habits.forEach((item, index) => {
       const row = document.createElement("div");
       row.className = "item";
+
+      const dragHandle = document.createElement("span");
+      dragHandle.className = "drag";
+      dragHandle.textContent = "⋮⋮";
 
       const text = document.createElement("span");
       text.className = "item-text";
@@ -731,8 +792,11 @@ body {
         daysDiv.appendChild(dayBtn);
       });
 
+      row.appendChild(dragHandle);
       row.appendChild(text);
       row.appendChild(daysDiv);
+
+      attachDragListeners(row, index, "habits", renderHabits);
       habitList.appendChild(row);
     });
   }
@@ -827,9 +891,13 @@ body {
       return;
     }
 
-    data.buys.forEach(item => {
+    data.buys.forEach((item, index) => {
       const row = document.createElement("div");
       row.className = "item";
+
+      const dragHandle = document.createElement("span");
+      dragHandle.className = "drag";
+      dragHandle.textContent = "⋮⋮";
 
       const text = document.createElement("span");
       text.className = "item-text";
@@ -844,8 +912,11 @@ body {
         cycleBuyStatus(item);
       };
 
+      row.appendChild(dragHandle);
       row.appendChild(text);
       row.appendChild(badge);
+
+      attachDragListeners(row, index, "buys", renderBuys);
       buyList.appendChild(row);
     });
   }
