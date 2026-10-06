@@ -36,10 +36,9 @@
   --focus-bg: #f0f7f7;
   --focus-border: rgba(130, 163, 163, 0.3);
 
-  /* CREAM (ORIGINAL FOCUS STYLE) — THINGS TO BUY */
+  /* CREAM (FOCUS STYLE) — THINGS TO BUY */
   --buy-bg: rgba(255,253,248,.88);
   --buy-item: #f2ebe0;
-  --buy-accent: #9e8d7c;
 
   /* LIME — PRACTISED */
   --lime: #c5e89b;
@@ -104,13 +103,20 @@ body {
   justify-content: center;
 }
 
-/* FOCUS CARD (NOW ICE BLUE F0F7F7) */
+/* FOCUS CARD */
 .focus-card {
   background: var(--focus-bg);
   border: 1px solid var(--focus-border);
   border-radius: 14px;
   padding: 10px 12px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.focus-content {
+  flex: 1;
 }
 
 .label {
@@ -174,23 +180,29 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-height: 10px;
 }
 
 /* ITEM */
 .item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-height: 32px;
-  padding: 6px 8px;
+  padding: 5px 8px;
   border-radius: 8px;
-  transition: opacity .15s ease, transform .15s ease;
+  transition: opacity .15s ease, transform .15s ease, background-color 0.2s ease;
   user-select: none;
+  position: relative;
+}
+
+.item.drag-over {
+  border-top: 2px solid var(--ink);
 }
 
 .item.dragging {
-  opacity: 0.4;
-  transform: scale(0.98);
+  opacity: 0.35;
+  transform: scale(0.97);
 }
 
 .goals .item { background: var(--strawberry); }
@@ -211,6 +223,36 @@ body {
 .item-text.completed {
   color: var(--muted);
   text-decoration: line-through;
+}
+
+/* ACTION BUTTONS (MODIFY & DELETE) */
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.action-btn {
+  border: 0;
+  background: transparent;
+  color: rgba(70,70,65,0.45);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.action-btn:hover {
+  background: rgba(255,255,255,0.6);
+  color: var(--ink);
+}
+
+.action-btn.delete-btn:hover {
+  color: #c94a4a;
+  background: rgba(201,74,74,0.12);
 }
 
 /* DOT FOR CURRENTLY LEARNING */
@@ -245,15 +287,21 @@ body {
 }
 
 .drag {
-  color: rgba(80,80,75,.35);
-  font-size: 10px;
+  color: rgba(80,80,75,.4);
+  font-size: 11px;
   cursor: grab;
   touch-action: none;
-  padding: 0 2px;
+  padding: 2px 3px;
+  border-radius: 4px;
 }
 
 .drag:active {
   cursor: grabbing;
+}
+
+.drag:hover {
+  background: rgba(255,255,255,0.4);
+  color: var(--ink);
 }
 
 /* STATUS BADGES */
@@ -317,13 +365,12 @@ body {
 /* HABIT DAYS */
 .habit-days {
   display: flex;
-  gap: 3px;
-  margin-left: auto;
+  gap: 2px;
 }
 
 .day {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -431,13 +478,16 @@ body {
     <button type="button" class="add-menu" id="globalAdd" aria-label="Add">+</button>
   </header>
 
-  <!-- FOCUS (NOW ICE BLUE #F0F7F7) -->
+  <!-- FOCUS CARD -->
   <section class="focus-card">
-    <div class="label">Right now</div>
-    <div class="focus-text" id="focusText">My main focus</div>
+    <div class="focus-content">
+      <div class="label">Right now</div>
+      <div class="focus-text" id="focusText">My main focus</div>
+    </div>
+    <button type="button" class="action-btn" id="editFocusBtn" title="Modify focus">✎</button>
   </section>
 
-  <!-- GOALS (STRAWBERRY) -->
+  <!-- GOALS -->
   <section class="section goals">
     <div class="section-header">
       <div class="section-title">
@@ -461,7 +511,7 @@ body {
     </div>
   </section>
 
-  <!-- HABITS (CAPPUCCINO) -->
+  <!-- HABITS -->
   <section class="section habits">
     <div class="section-header">
       <div class="section-title">
@@ -480,7 +530,7 @@ body {
     </div>
   </section>
 
-  <!-- LEARNING (PISTACHIO) -->
+  <!-- LEARNING -->
   <section class="section learning">
     <div class="section-header">
       <div class="section-title">
@@ -499,7 +549,7 @@ body {
     </div>
   </section>
 
-  <!-- BUY (NOW CREAM/FOCUS CARD STYLE) -->
+  <!-- BUY -->
   <section class="section buy">
     <div class="section-header">
       <div class="section-title">
@@ -524,7 +574,7 @@ body {
 
   <!-- FOOTER -->
   <div class="footer">
-    <span>⋮⋮ drag to rearrange</span>
+    <span>⋮⋮ drag handles to rearrange</span>
     <button type="button" class="clear-button" id="clearCompleted">clear completed</button>
   </div>
 
@@ -532,7 +582,7 @@ body {
 
 <script>
 (function() {
-  const STORAGE_KEY = "lifeSnapshot_v4";
+  const STORAGE_KEY = "lifeSnapshot_v5";
 
   let data = {
     focus: "My main focus",
@@ -567,6 +617,7 @@ body {
   const buyList = document.getElementById("buyList");
   const skillArea = document.getElementById("skillArea");
   const focusText = document.getElementById("focusText");
+  const editFocusBtn = document.getElementById("editFocusBtn");
   const goalCount = document.getElementById("goalCount");
   const practisedBtn = document.getElementById("practisedBtn");
 
@@ -590,15 +641,22 @@ body {
     });
   });
 
-  /* FOCUS EDIT ON CLICK */
-  focusText.addEventListener("click", function() {
-    const value = prompt("What is your main focus right now?", data.focus);
+  document.getElementById("globalAdd").addEventListener("click", function() {
+    showAddArea("goals");
+  });
+
+  /* EDIT FOCUS */
+  function editFocus() {
+    const value = prompt("Modify main focus:", data.focus);
     if (value !== null && value.trim()) {
       data.focus = value.trim();
       save();
       renderFocus();
     }
-  });
+  }
+
+  focusText.addEventListener("click", editFocus);
+  editFocusBtn.addEventListener("click", editFocus);
 
   function renderFocus() {
     focusText.textContent = data.focus || "My main focus";
@@ -607,16 +665,37 @@ body {
   /* PRACTISED TODAY */
   practisedBtn.addEventListener("click", function() {
     const today = getTodayString();
-    if (data.lastPractised === today) {
-      data.lastPractised = "";
-    } else {
-      data.lastPractised = today;
-    }
+    data.lastPractised = (data.lastPractised === today) ? "" : today;
     save();
     renderSkill();
   });
 
-  /* DRAG & DROP SUPPORT */
+  /* GENERIC MODIFY & DELETE ACTIONS */
+  function deleteItem(type, index) {
+    if (Array.isArray(data[type])) {
+      data[type].splice(index, 1);
+      save();
+      renderType(type);
+    }
+  }
+
+  function editItemText(item, type) {
+    const newText = prompt("Modify task:", item.text);
+    if (newText !== null && newText.trim()) {
+      item.text = newText.trim();
+      save();
+      renderType(type);
+    }
+  }
+
+  function renderType(type) {
+    if (type === "goals") renderGoals();
+    if (type === "habits") renderHabits();
+    if (type === "buys" || type === "buy") renderBuys();
+    if (type === "skill") renderSkill();
+  }
+
+  /* REUSABLE DRAG & DROP HANDLER FOR ALL SECTIONS */
   let draggedIndex = null;
   let draggedType = null;
 
@@ -628,21 +707,31 @@ body {
       draggedType = type;
       element.classList.add("dragging");
       e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", index);
     });
 
     element.addEventListener("dragend", () => {
       element.classList.remove("dragging");
+      document.querySelectorAll(".item").forEach(el => el.classList.remove("drag-over"));
       draggedIndex = null;
       draggedType = null;
     });
 
     element.addEventListener("dragover", (e) => {
       e.preventDefault();
-      e.dataTransfer.dropEffect = "move";
+      if (draggedType === type) {
+        e.dataTransfer.dropEffect = "move";
+        element.classList.add("drag-over");
+      }
+    });
+
+    element.addEventListener("dragleave", () => {
+      element.classList.remove("drag-over");
     });
 
     element.addEventListener("drop", (e) => {
       e.preventDefault();
+      element.classList.remove("drag-over");
       if (draggedType !== type || draggedIndex === null || draggedIndex === index) return;
 
       const list = data[type];
@@ -654,7 +743,7 @@ body {
     });
   }
 
-  /* ADD GOAL */
+  /* GOALS */
   function addGoal() {
     const input = document.getElementById("goalInput");
     const statusSelect = document.getElementById("goalStatusSelect");
@@ -677,7 +766,6 @@ body {
   document.getElementById("goalAddConfirm").addEventListener("click", addGoal);
   document.getElementById("goalInput").addEventListener("keydown", e => { if (e.key === "Enter") addGoal(); });
 
-  /* CYCLE GOAL STATUS */
   function cycleGoalStatus(goal) {
     const statuses = ["now", "soon", "later"];
     const currentIdx = statuses.indexOf(goal.status || "now");
@@ -686,7 +774,6 @@ body {
     renderGoals();
   }
 
-  /* RENDER GOALS */
   function renderGoals() {
     goalList.innerHTML = "";
     goalCount.textContent = data.goals.length;
@@ -703,6 +790,7 @@ body {
       const dragHandle = document.createElement("span");
       dragHandle.className = "drag";
       dragHandle.textContent = "⋮⋮";
+      dragHandle.title = "Drag to reorder";
 
       const check = document.createElement("button");
       check.type = "button";
@@ -727,17 +815,42 @@ body {
         cycleGoalStatus(item);
       };
 
+      const actions = document.createElement("div");
+      actions.className = "item-actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "action-btn";
+      editBtn.textContent = "✎";
+      editBtn.title = "Modify";
+      editBtn.onclick = (e) => {
+        e.stopPropagation();
+        editItemText(item, "goals");
+      };
+
+      const delBtn = document.createElement("button");
+      delBtn.className = "action-btn delete-btn";
+      delBtn.textContent = "✕";
+      delBtn.title = "Delete";
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        deleteItem("goals", index);
+      };
+
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+
       row.appendChild(dragHandle);
       row.appendChild(check);
       row.appendChild(text);
       row.appendChild(badge);
+      row.appendChild(actions);
 
       attachDragListeners(row, index, "goals", renderGoals);
       goalList.appendChild(row);
     });
   }
 
-  /* ADD HABIT */
+  /* HABITS */
   function addHabit() {
     const input = document.getElementById("habitInput");
     const text = input.value.trim();
@@ -769,6 +882,7 @@ body {
       const dragHandle = document.createElement("span");
       dragHandle.className = "drag";
       dragHandle.textContent = "⋮⋮";
+      dragHandle.title = "Drag to reorder";
 
       const text = document.createElement("span");
       text.className = "item-text";
@@ -796,16 +910,41 @@ body {
         daysDiv.appendChild(dayBtn);
       });
 
+      const actions = document.createElement("div");
+      actions.className = "item-actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "action-btn";
+      editBtn.textContent = "✎";
+      editBtn.title = "Modify";
+      editBtn.onclick = (e) => {
+        e.stopPropagation();
+        editItemText(item, "habits");
+      };
+
+      const delBtn = document.createElement("button");
+      delBtn.className = "action-btn delete-btn";
+      delBtn.textContent = "✕";
+      delBtn.title = "Delete";
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        deleteItem("habits", index);
+      };
+
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+
       row.appendChild(dragHandle);
       row.appendChild(text);
       row.appendChild(daysDiv);
+      row.appendChild(actions);
 
       attachDragListeners(row, index, "habits", renderHabits);
       habitList.appendChild(row);
     });
   }
 
-  /* RENDER SKILL */
+  /* SKILL */
   function renderSkill() {
     skillArea.innerHTML = "";
     const today = getTodayString();
@@ -824,27 +963,46 @@ body {
     const row = document.createElement("div");
     row.className = "item";
 
-    const dragHandle = document.createElement("span");
-    dragHandle.className = "drag";
-    dragHandle.textContent = "⋮⋮";
-
     const dot = document.createElement("span");
     dot.className = "learning-dot";
 
     const text = document.createElement("span");
     text.className = "item-text";
     text.textContent = data.skill;
-    text.onclick = () => {
+    text.onclick = () => showAddArea("skill");
+
+    const actions = document.createElement("div");
+    actions.className = "item-actions";
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "action-btn";
+    editBtn.textContent = "✎";
+    editBtn.title = "Modify";
+    editBtn.onclick = (e) => {
+      e.stopPropagation();
       showAddArea("skill");
     };
 
-    row.appendChild(dragHandle);
+    const delBtn = document.createElement("button");
+    delBtn.className = "action-btn delete-btn";
+    delBtn.textContent = "✕";
+    delBtn.title = "Clear skill";
+    delBtn.onclick = (e) => {
+      e.stopPropagation();
+      data.skill = "";
+      save();
+      renderSkill();
+    };
+
+    actions.appendChild(editBtn);
+    actions.appendChild(delBtn);
+
     row.appendChild(dot);
     row.appendChild(text);
+    row.appendChild(actions);
     skillArea.appendChild(row);
   }
 
-  /* ADD SKILL */
   function addSkill() {
     const input = document.getElementById("skillInput");
     const text = input.value.trim();
@@ -860,7 +1018,7 @@ body {
   document.getElementById("skillAddConfirm").addEventListener("click", addSkill);
   document.getElementById("skillInput").addEventListener("keydown", e => { if (e.key === "Enter") addSkill(); });
 
-  /* ADD BUY */
+  /* THINGS TO BUY */
   function addBuy() {
     const input = document.getElementById("buyInput");
     const statusSelect = document.getElementById("buyStatusSelect");
@@ -902,6 +1060,7 @@ body {
       const dragHandle = document.createElement("span");
       dragHandle.className = "drag";
       dragHandle.textContent = "⋮⋮";
+      dragHandle.title = "Drag to reorder";
 
       const text = document.createElement("span");
       text.className = "item-text";
@@ -916,25 +1075,38 @@ body {
         cycleBuyStatus(item);
       };
 
+      const actions = document.createElement("div");
+      actions.className = "item-actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "action-btn";
+      editBtn.textContent = "✎";
+      editBtn.title = "Modify";
+      editBtn.onclick = (e) => {
+        e.stopPropagation();
+        editItemText(item, "buys");
+      };
+
+      const delBtn = document.createElement("button");
+      delBtn.className = "action-btn delete-btn";
+      delBtn.textContent = "✕";
+      delBtn.title = "Delete";
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        deleteItem("buys", index);
+      };
+
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+
       row.appendChild(dragHandle);
       row.appendChild(text);
       row.appendChild(badge);
+      row.appendChild(actions);
 
       attachDragListeners(row, index, "buys", renderBuys);
       buyList.appendChild(row);
     });
-  }
-
-  /* INLINE EDIT TASK TEXT */
-  function editItemText(item, type) {
-    const newText = prompt("Edit text:", item.text);
-    if (newText !== null && newText.trim()) {
-      item.text = newText.trim();
-      save();
-      if (type === "goals") renderGoals();
-      if (type === "habits") renderHabits();
-      if (type === "buys") renderBuys();
-    }
   }
 
   /* CLEAR COMPLETED */
