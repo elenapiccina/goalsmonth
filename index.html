@@ -23,19 +23,23 @@
   --strawberry-accent: #c99491;
 
   /* CAPPUCCINO — HABITS */
-  --almond: #e8d8ca;
-  --almond-light: #f2e8df;
-  --almond-accent: #b99d85;
+  --cappuccino: #e8d8ca;
+  --cappuccino-light: #f2e8df;
+  --cappuccino-accent: #b99d85;
 
   /* PISTACHIO — LEARNING */
   --pistachio: #dcebd1;
   --pistachio-light: #edf5e8;
   --pistachio-accent: #9db68c;
 
-  /* SOFT ICE BLUE/MINT — THINGS TO BUY (#F0F7F7) */
-  --cappuccino: #d9eaea;
-  --cappuccino-light: #f0f7f7;
-  --cappuccino-accent: #82a3a3;
+  /* ICE BLUE (#F0F7F7) — MAIN FOCUS CARD */
+  --focus-bg: #f0f7f7;
+  --focus-border: rgba(130, 163, 163, 0.3);
+
+  /* CREAM (ORIGINAL FOCUS STYLE) — THINGS TO BUY */
+  --buy-bg: rgba(255,253,248,.88);
+  --buy-item: #f2ebe0;
+  --buy-accent: #9e8d7c;
 
   /* LIME — PRACTISED */
   --lime: #c5e89b;
@@ -100,10 +104,10 @@ body {
   justify-content: center;
 }
 
-/* FOCUS */
+/* FOCUS CARD (NOW ICE BLUE F0F7F7) */
 .focus-card {
-  background: rgba(255,253,248,.88);
-  border: 1px solid rgba(80,75,65,.14);
+  background: var(--focus-bg);
+  border: 1px solid var(--focus-border);
   border-radius: 14px;
   padding: 10px 12px;
   margin-bottom: 8px;
@@ -111,9 +115,9 @@ body {
 
 .label {
   margin-bottom: 4px;
-  color: var(--muted);
+  color: #6a8888;
   font-size: 9px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -135,9 +139,9 @@ body {
 }
 
 .section.goals { background: var(--strawberry-light); }
-.section.habits { background: var(--almond-light); }
+.section.habits { background: var(--cappuccino-light); }
 .section.learning { background: var(--pistachio-light); }
-.section.buy { background: var(--cappuccino-light); }
+.section.buy { background: var(--buy-bg); }
 
 .section-header {
   display: flex;
@@ -190,9 +194,9 @@ body {
 }
 
 .goals .item { background: var(--strawberry); }
-.habits .item { background: var(--almond); }
+.habits .item { background: var(--cappuccino); }
 .learning .item { background: var(--pistachio); }
-.buy .item { background: var(--cappuccino); }
+.buy .item { background: var(--buy-item); }
 
 .item-text {
   flex: 1;
@@ -284,13 +288,13 @@ body {
 }
 
 .status-badge.want {
-  background: rgba(255,255,255,.55);
-  color: #4b6f6f;
+  background: rgba(255,255,255,.65);
+  color: #8c7865;
 }
 
 .status-badge.need {
-  background: rgba(130,163,163,.35);
-  color: #2e4a4a;
+  background: rgba(185,157,133,.35);
+  color: #5c4735;
 }
 
 /* PRACTISED TODAY BADGE */
@@ -427,13 +431,13 @@ body {
     <button type="button" class="add-menu" id="globalAdd" aria-label="Add">+</button>
   </header>
 
-  <!-- FOCUS -->
+  <!-- FOCUS (NOW ICE BLUE #F0F7F7) -->
   <section class="focus-card">
     <div class="label">Right now</div>
     <div class="focus-text" id="focusText">My main focus</div>
   </section>
 
-  <!-- GOALS -->
+  <!-- GOALS (STRAWBERRY) -->
   <section class="section goals">
     <div class="section-header">
       <div class="section-title">
@@ -457,7 +461,7 @@ body {
     </div>
   </section>
 
-  <!-- HABITS -->
+  <!-- HABITS (CAPPUCCINO) -->
   <section class="section habits">
     <div class="section-header">
       <div class="section-title">
@@ -476,7 +480,7 @@ body {
     </div>
   </section>
 
-  <!-- LEARNING -->
+  <!-- LEARNING (PISTACHIO) -->
   <section class="section learning">
     <div class="section-header">
       <div class="section-title">
@@ -495,7 +499,7 @@ body {
     </div>
   </section>
 
-  <!-- BUY -->
+  <!-- BUY (NOW CREAM/FOCUS CARD STYLE) -->
   <section class="section buy">
     <div class="section-header">
       <div class="section-title">
